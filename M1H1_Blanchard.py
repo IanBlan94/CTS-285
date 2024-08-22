@@ -38,8 +38,7 @@ def main():
                         print("Please pick an appropiate response.\n ")
                 if choice == "no":
                     break
-            
-            
+                      
         elif choice == "2":
             
             while True:
@@ -80,7 +79,10 @@ def main():
             while True:
                 numbers = get_numbers()
                 result = division(numbers)
-                print(f"{numbers[0]} * {numbers[1]} = {result}")
+                if result == None:
+                    print("You cannot divide by zero")
+                else:    
+                    print(f"{numbers[0]} * {numbers[1]} = {result}")
                 
                 while True:
                     choice = input("Would you like to do another problem? yes or no? ").lower()
@@ -98,15 +100,13 @@ def main():
             repeat = False
         else:
             print("Please enter a number 1-5 from the menu options")
-            
-        
+                   
 def addition(stored):
     total = stored[0]
     for i in stored[1:]:
         total += i
     return total
-  
-            
+              
 def subtraction(stored):
     total = stored[0]
     for i in stored[1:]:
@@ -122,7 +122,6 @@ def multiplication(stored):
 def division(stored):
     for i in stored[0:]:
         if i == 0:
-            print("Cannot divide by zero\n")
             return None
     total = stored[0]
     for i in stored[1:]:
@@ -131,12 +130,26 @@ def division(stored):
            
 def get_numbers():
     stored = []
-    one = int(input("Please enter the first number \n"))
-    two = int(input("Please enter the second number \n"))
+    while True:
+        
+        try:
+            one = float(input("Please enter the first number \n"))
+            break
+        
+        except ValueError:
+            print("Please enter a valid number")
+    while True:
+        try:
+            two = float(input("Please enter the second number \n"))  
+            break
+        except ValueError:
+            print("Please enter a valid number")
+        
     stored.append(one)
     stored.append(two)
     return stored
         
 main()
     
+ 
  
