@@ -1,22 +1,15 @@
 #Minimal Flask app
 
-from flask import Flask
+from flask import Flask, render_template
+
 
 app = Flask(__name__)
 
 @app.route("/")
 def index():
     # multiquote for multiline
-    return """
-    <h1>Hello, World!</h1>
-    <p>This is a paragraph</p>
-    <ol>
-        <li>This</li>
-        <li>is</li>
-        <li>list</>
-    </ol>
-    <a href="action">Click me</a>
-    """
+    name="John"
+    return render_template("main_page.html", name=name)
 
 @app.route("/action")
 
