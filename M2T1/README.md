@@ -18,7 +18,7 @@ intitial tutorial: https://blog.pythonanywhere.com/121/
 
 install library:
 
-first install virtual emvironment
+first install virtual environment
 pip install virtualenv
 virtualenv venv
 source venv/bin/activate  ("deactivate" to shut off)
@@ -31,6 +31,11 @@ Installing flask:
 
 - pip install flask
 - pip freeze > requirements.txt
+
+Activate the environment:
+cd M2T1
+source venv/bin/activate
+
 
 
 now we can write our minimal Flask app to test it
