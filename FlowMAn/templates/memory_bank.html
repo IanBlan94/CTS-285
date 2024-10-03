@@ -1,0 +1,29 @@
+{% extends 'base.html' %}
+{% block content %}
+    <h2>Memory Bank</h2>
+
+    {% if current_question %}
+        <h3>Current Question:</h3>
+        <p>{{ current_question.split('=')[0] }} = ?</p>
+        <form method="POST">
+            <input type="text" name="answer" placeholder="Your answer" required>
+            <button type="submit" name="guess">Submit Guess</button>
+        </form>
+    {% else %}
+        <h3>Congratulations!</h3>
+        <p>You have answered all questions!</p>
+        <a href="{{ url_for('menu') }}">Back to Menu</a>
+    {% endif %}
+
+    <h3>Your Questions:</h3>
+    <ul>
+        {% for item in memory %}
+            <li>{{ item }}</li>
+        {% endfor %}
+    </ul>
+
+    <form method="POST">
+        <input type="text" name="new_equation" placeholder="Add new equation (e.g., 2 + 2 =)" required>
+        <button type="submit" name="add_question">Add Question</button>
+    </form>
+{% endblock %}
