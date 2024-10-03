@@ -6,7 +6,6 @@ Created on Thu Oct  3 17:09:29 2024
 """
 
 from flask import Flask, render_template, request, redirect, url_for, flash, session
-  # Import eval for evaluation (Note: be careful with eval in production)
 
 app = Flask(__name__)
 app.secret_key = 'your_secret_key'  # Set a secret key for session management
@@ -59,7 +58,6 @@ def answer_checker():
     
     return render_template('answer_checker.html')
 
-
 @app.route('/memory_bank', methods=['GET', 'POST'])
 def memory_bank():
     global memory  # Reference the global memory list
@@ -106,13 +104,12 @@ def memory_bank():
                     
                     if user_answer == correct_answer:
                         flash("Congrats! You solved the problem correctly!")
-                        # Move to the next question
+                        session['score'] = session.get('score', 0) + 1
                         session['current_index'] = current_index + 1
                     else:
                         session['attempts'] = session.get('attempts', 0) + 1
                         if session['attempts'] >= 3:
                             flash(f"Sorry, that's incorrect. The correct answer was {correct_answer}.")
-                            # Move to the next question
                             session['current_index'] = current_index + 1
                             session['attempts'] = 0  # Reset attempts
                         else:
@@ -120,20 +117,34 @@ def memory_bank():
 
                 except ValueError:
                     flash("Please enter a valid number.")
-        
+
+        elif 'restart' in request.form:
+            # Reset session variables for a new game
+            session['current_index'] = 0
+            session['attempts'] = 0
+            session['score'] = 0
+            return redirect(url_for('memory_bank'))
+
         return redirect(url_for('memory_bank'))
 
     # Initialize session variables if starting a new game
     if 'current_index' not in session:
         session['current_index'] = 0
         session['attempts'] = 0
+        session['score'] = 0
 
     # Get the current question
     current_index = session['current_index']
     if current_index < len(memory):
         current_question = memory[current_index]
     else:
-        current_question = None  # No more questions left
+        # All questions answered
+        final_score = session.get('score', 0)  # Use .get() to avoid KeyError
+        # Reset session variables for a new game
+        session['current_index'] = 0
+        session['attempts'] = 0
+        session['score'] = 0
+        return render_template('memory_bank.html', current_question=None, final_score=final_score)
 
     return render_template('memory_bank.html', current_question=current_question)
 

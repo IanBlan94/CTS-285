@@ -12,7 +12,10 @@
     {% else %}
         <h3>Congratulations!</h3>
         <p>You have answered all questions!</p>
-        <a href="{{ url_for('menu') }}">Back to Menu</a>
+        <p>Your score: {{ final_score }}</p>
+        <form method="POST">
+            <button type="submit" name="restart">Restart Game</button>
+        </form>
     {% endif %}
 
     <h3>Your Questions:</h3>
