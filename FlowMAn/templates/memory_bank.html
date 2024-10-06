@@ -1,32 +1,54 @@
 {% extends 'base.html' %}
+
 {% block content %}
-    <h2>Memory Bank</h2>
+<h2>Memory Bank</h2>
 
-    {% if current_question %}
-        <h3>Current Question:</h3>
-        <p>{{ current_question.split('=')[0] }} = ?</p>
-        <form method="POST">
-            <input type="text" name="answer" placeholder="Your answer" required>
-            <button type="submit" name="guess">Submit Guess</button>
-        </form>
-    {% else %}
-        <h3>Congratulations!</h3>
-        <p>You have answered all questions!</p>
-        <p>Your score: {{ final_score }}</p>
-        <form method="POST">
-            <button type="submit" name="restart">Restart Game</button>
-        </form>
+<!-- Display flash messages (for errors or success messages) -->
+{% with messages = get_flashed_messages() %}
+    {% if messages %}
+        <ul class="flashes">
+            {% for message in messages %}
+                <li>{{ message }}</li>
+            {% endfor %}
+        </ul>
     {% endif %}
+{% endwith %}
 
-    <h3>Your Questions:</h3>
+<!-- Section to display the current question, if available -->
+{% if current_question %}
+    <h3>Current Question</h3>
+    <p>{{ current_question.split('=')[0] }} = ?</p>
+    <form method="POST" action="{{ url_for('memory_bank') }}">
+        <label for="answer">Your Answer:</label>
+        <input type="text" id="answer" name="answer" placeholder="Enter your answer here" required>
+        <button type="submit" name="guess">Submit Guess</button>
+    </form>
+{% else %}
+    <!-- Message when all questions are answered -->
+    <h3>Congratulations!</h3>
+    <p>You have answered all the questions!</p>
+    <p>Your final score: {{ final_score }}</p>
+    <form method="POST" action="{{ url_for('memory_bank') }}">
+        <button type="submit" name="restart">Restart Game</button>
+    </form>
+{% endif %}
+
+<!-- Section to add new equations to the memory bank -->
+<h3>Add New Equation</h3>
+<form method="POST" action="{{ url_for('memory_bank') }}">
+    <input type="text" name="new_equation" placeholder="e.g., 2 + 2 =" required>
+    <button type="submit" name="add_question">Add Question</button>
+</form>
+
+<!-- Display the list of current questions in the memory bank -->
+{% if memory %}
+    <h3>Current Memory Bank</h3>
     <ul>
         {% for item in memory %}
             <li>{{ item }}</li>
         {% endfor %}
     </ul>
-
-    <form method="POST">
-        <input type="text" name="new_equation" placeholder="Add new equation (e.g., 2 + 2 =)" required>
-        <button type="submit" name="add_question">Add Question</button>
-    </form>
+{% else %}
+    <p>No questions in the memory bank yet.</p>
+{% endif %}
 {% endblock %}
