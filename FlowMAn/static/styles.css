@@ -1,0 +1,122 @@
+/* styles.css */
+
+/* General styling for the entire body */
+body {
+    font-family: 'Arial', sans-serif;
+    background-color: #f5f5f5; /* Light gray for a soft background */
+    color: #333; /* Dark gray for text */
+    margin: 0;
+    padding: 0;
+}
+
+/* Navigation bar styling */
+nav {
+    background-color: #4CAF50; /* Modern green tone */
+    padding: 10px;
+    display: flex;
+    justify-content: space-around;
+}
+
+nav a {
+    color: white;
+    text-decoration: none;
+    font-size: 1.2rem;
+    font-weight: bold;
+    padding: 10px;
+    transition: color 0.3s;
+}
+
+nav a:hover {
+    color: #FFD700; /* Playful gold on hover */
+}
+
+/* Content container styling */
+.content {
+    margin: 20px;
+    padding: 20px;
+    background-color: white;
+    border-radius: 8px;
+    box-shadow: 0px 0px 10px rgba(0, 0, 0, 0.1); /* Soft shadow for depth */
+}
+
+/* Header styling */
+h1, h2, h3 {
+    color: #2F4F4F; /* Dark slate gray for headers */
+    font-family: 'Comic Sans MS', 'Arial', sans-serif; /* A bit of fun without overdoing it */
+}
+
+h1 {
+    font-size: 2.5rem;
+    text-align: center;
+    margin-bottom: 20px;
+}
+
+h2 {
+    font-size: 2rem;
+    margin-bottom: 15px;
+}
+
+h3 {
+    font-size: 1.5rem;
+    margin-bottom: 10px;
+}
+
+/* Button styling */
+button {
+    background-color: #FF6347; /* Tomato color for buttons */
+    color: white;
+    padding: 10px 15px;
+    border: none;
+    border-radius: 5px;
+    font-size: 1rem;
+    cursor: pointer;
+    transition: background-color 0.3s ease;
+}
+
+
+
+/* Input field styling */
+input[type="text"] {
+    width: 100%;
+    padding: 10px;
+    margin: 10px 0;
+    border: 1px solid #ddd;
+    border-radius: 5px;
+    font-size: 1rem;
+}
+
+/* Form section styling */
+form {
+    margin-top: 20px;
+}
+
+/* Styling for lists */
+ul {
+    list-style-type: none;
+    padding: 0;
+}
+
+ul li {
+    margin: 10px 0;
+}
+
+/* Special sections */
+#add_question p {
+    font-size: 0.9rem;
+    color: #666; /* Subtle gray for additional text */
+}
+
+/* Flash messages */
+ul {
+    padding: 0;
+    margin: 10px 0;
+    list-style-type: none;
+}
+
+ul li {
+    background-color: #FFD700; /* Bright yellow for flash messages */
+    padding: 10px;
+    border-radius: 5px;
+    margin-bottom: 10px;
+    font-weight: bold;
+}
