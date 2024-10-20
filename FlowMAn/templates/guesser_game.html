@@ -1,0 +1,39 @@
+{% extends 'base.html' %}
+
+{% block content %}
+<h2>Guesser Game</h2>
+
+<!-- Display flash messages for errors, etc. if needed -->
+{% with messages = get_flashed_messages() %}
+  {% if messages %}
+    <ul class="flashes">
+      {% for message in messages %}
+        <li>{{ message }}</li>
+      {% endfor %}
+    </ul>
+  {% endif %}
+{% endwith %}
+
+<!-- Game logic and hints -->
+{% if not game_over %}
+    <h3>{{ message }}</h3>
+    <p>{{ hint }}</p>
+    
+    <!-- Guess submission form -->
+    <form method="POST" action="{{ url_for('guesser_game') }}">
+        <label for="guess">Enter your guess:</label>
+        <input type="number" name="guess" id="guess" min="1" max="100" required>
+        <button type="submit">Submit Guess</button>
+    </form>
+
+    <p>You have {{ 3 - session.counter }} tries left.</p>
+{% else %}
+    <!-- Game over message -->
+    <h3>Game Over</h3>
+    <p>{{ message }}</p>
+    <form method="GET" action="{{ url_for('reset_game') }}">
+        <button type="submit">Play Again</button>
+    </form>
+{% endif %}
+
+{% endblock %}
